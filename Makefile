@@ -1,6 +1,7 @@
 CC = gcc
 EXT = c
-CFLAGS = -Iinclude -g -Wall
+CFLAGS = -g -Wall
+IFLAGS = -Iinclude
 LFLAGS =
 SRC = src
 OBJ = obj
@@ -17,20 +18,20 @@ zip = zip
 all: create_dirs
 all: $(BIN)
 
-release: CFLAGS = -Iinclude -O2
+release: CFLAGS = -O2
 release: new
 
 $(BIN): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LFLAGS)
+	$(CC) $(IFLAGS) $(CFLAGS) $(OBJS) -o $@ $(LFLAGS)
 
 $(OBJ)/%.o: $(SRC)/%.$(EXT)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(IFLAGS) $(CFLAGS) -c $< -o $@
 
 %.o: $(SRC)/%.$(EXT)
-	$(CC) $(CFLAGS) -c $< -o $(OBJ)/$@	
+	$(CC) $(IFLAGS) $(CFLAGS) -c $< -o $(OBJ)/$@	
 
 link: $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(BIN) $(LFLAGS)
+	$(CC) $(IFLAGS) $(CFLAGS) $(OBJS) -o $(BIN) $(LFLAGS)
 
 clean:
 	rm -r $(BINDIR) $(OBJ)
